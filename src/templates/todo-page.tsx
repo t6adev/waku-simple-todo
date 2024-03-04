@@ -1,20 +1,21 @@
 import { Link } from 'waku';
-import { Add } from '../components/Add.js';
-import { Todo } from '../components/Todo.js';
-import { readTodos, addTodo } from '../actions/todoActions.js';
+
+import { readTodos, addTodo, toggleTodo, deleteTodo } from '../actions/todoActions.js';
+import { TopTodos } from '../components/TopTodos.js';
+
+type ServerFunction<T> = T extends (...args: infer A) => infer R ? (...args: A) => R : never;
 
 export const TodoPage = async () => {
   const todos = await readTodos();
 
   return (
     <div>
-      <Add addTodo={addTodo} />
-      <div className="mt-4">
-        <h2 className="text-lg font-semibold mb-2">Todos</h2>
-        {todos.map((todo) => (
-          <Todo key={todo.id} {...todo} />
-        ))}
-      </div>
+      <TopTodos
+        todos={todos}
+        addTodo={addTodo as unknown as ServerFunction<typeof addTodo>}
+        toggle={toggleTodo as unknown as ServerFunction<typeof toggleTodo>}
+        deleteTodo={deleteTodo as unknown as ServerFunction<typeof deleteTodo>}
+      />
       <Link to="/" className="mt-4 inline-block underline">
         Return home
       </Link>

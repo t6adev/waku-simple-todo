@@ -2,13 +2,17 @@
 
 import { useRef, useTransition } from 'react';
 
-export const Add = ({ addTodo }: { addTodo: (formData: FormData) => Promise<void> }) => {
+export const Add = ({
+  addTodo,
+}: {
+  addTodo: (formData: FormData) => Promise<{ id: string; title: string; done: boolean }>;
+}) => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isPending, startTransition] = useTransition();
   const addTodoFormAction = async (formData: FormData) => {
     startTransition(async () => {
-      await addTodo(formData);
       formRef.current?.reset();
+      await addTodo(formData);
     });
   };
   return (
@@ -19,19 +23,14 @@ export const Add = ({ addTodo }: { addTodo: (formData: FormData) => Promise<void
           type="text"
           name="title"
           placeholder="Add new Todo"
-          className={`rounded-sm bg-gray-100 px-2 py-0.5 text-sm ${
-            isPending ? 'text-gray-300' : 'text-gray-600'
-          }`}
-          disabled={isPending}
+          className="rounded-sm bg-gray-100 px-2 py-0.5 text-sm text-gray-600"
         />
         <input
           type="submit"
           value="Add"
-          className={`rounded-sm px-2 py-0.5 text-sm text-white ${
-            isPending ? 'bg-gray-500' : 'bg-black'
-          }`}
-          disabled={isPending}
+          className="rounded-sm px-2 py-0.5 text-sm text-white bg-black"
         />
+        {isPending && <span className="animate-spin">↻</span>}
       </form>
     </div>
   );

@@ -24,6 +24,7 @@ export const Delete = ({
         className={`rounded-sm px-2 py-0.5 text-sm text-white ${
           isPending ? 'bg-gray-500' : 'bg-black'
         }`}
+        disabled={isPending}
       />
     </form>
   );

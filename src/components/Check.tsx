@@ -19,19 +19,17 @@ export const Check = ({
     });
   };
   return (
-    <form action={toggleFormAction} className="flex">
-      {isPending ? (
-        <span className="animate-spin">↻</span>
-      ) : (
-        <input
-          type="checkbox"
-          className="w-4 h-4"
-          checked={done}
-          onChange={(e) => {
-            e.target.form?.requestSubmit();
-          }}
-        />
-      )}
+    <form action={toggleFormAction} className="relative">
+      <div className={`absolute -left-4 ${isPending ? 'block' : 'hidden'}`}>
+        <div className="animate-spin">↻</div>
+      </div>
+      <input
+        type="checkbox"
+        checked={done}
+        onChange={(e) => {
+          e.target.form?.requestSubmit();
+        }}
+      />
     </form>
   );
 };
