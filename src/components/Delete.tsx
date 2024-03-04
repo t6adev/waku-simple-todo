@@ -1,5 +1,7 @@
 'use client';
 
+import { useTransition } from 'react';
+
 export const Delete = ({
   id,
   deleteTodo,
@@ -7,13 +9,21 @@ export const Delete = ({
   id: string;
   deleteTodo: (id: string, formData: FormData) => Promise<void>;
 }) => {
-  const deleteFormAction = deleteTodo.bind(null, id);
+  const deleteTodoWithData = deleteTodo.bind(null, id);
+  const [isPending, startTransition] = useTransition();
+  const deleteTodoFormAction = async (formData: FormData) => {
+    startTransition(async () => {
+      await deleteTodoWithData(formData);
+    });
+  };
   return (
-    <form action={deleteFormAction}>
+    <form action={deleteTodoFormAction}>
       <input
         type="submit"
         value="Delete"
-        className="rounded-sm bg-black px-2 py-0.5 text-sm text-white"
+        className={`rounded-sm px-2 py-0.5 text-sm text-white ${
+          isPending ? 'bg-gray-500' : 'bg-black'
+        }`}
       />
     </form>
   );
