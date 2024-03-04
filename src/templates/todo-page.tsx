@@ -1,5 +1,5 @@
 import { Link } from 'waku';
-import { WrappedAdd as Add } from '../components/Add.js';
+import { Add } from '../components/Add.js';
 import { Todo } from '../components/Todo.js';
 import { readTodos, addTodo } from '../actions/todoActions.js';
 

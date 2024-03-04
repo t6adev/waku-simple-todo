@@ -1,27 +1,17 @@
 'use client';
 
-import { useRef, type RefObject } from 'react';
+import { useRef } from 'react';
 
-export const WrappedAdd = ({ addTodo }: { addTodo: (formData: FormData) => Promise<void> }) => {
+export const Add = ({ addTodo }: { addTodo: (formData: FormData) => Promise<void> }) => {
   const formRef = useRef<HTMLFormElement>(null);
   const addTodoFormAction = async (formData: FormData) => {
     addTodo(formData);
     formRef.current?.reset();
   };
-  return <Add addTodo={addTodoFormAction} formRef={formRef} />;
-};
-
-export const Add = ({
-  addTodo,
-  formRef,
-}: {
-  addTodo: (formData: FormData) => Promise<void>;
-  formRef: RefObject<HTMLFormElement>;
-}) => {
   return (
     <div className="flex gap-2 items-center">
       <h2 className="text-md font-semibold">New Todo</h2>
-      <form action={addTodo} className="flex-1 flex gap-2" ref={formRef}>
+      <form action={addTodoFormAction} className="flex-1 flex gap-2" ref={formRef}>
         <input
           type="text"
           name="title"
