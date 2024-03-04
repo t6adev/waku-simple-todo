@@ -1,12 +1,15 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useTransition } from 'react';
 
 export const Add = ({ addTodo }: { addTodo: (formData: FormData) => Promise<void> }) => {
   const formRef = useRef<HTMLFormElement>(null);
+  const [isPending, startTransition] = useTransition();
   const addTodoFormAction = async (formData: FormData) => {
-    addTodo(formData);
-    formRef.current?.reset();
+    startTransition(async () => {
+      await addTodo(formData);
+      formRef.current?.reset();
+    });
   };
   return (
     <div className="flex gap-2 items-center">
@@ -16,12 +19,18 @@ export const Add = ({ addTodo }: { addTodo: (formData: FormData) => Promise<void
           type="text"
           name="title"
           placeholder="Add new Todo"
-          className="rounded-sm bg-gray-100 px-2 py-0.5 text-sm text-gray-600"
+          className={`rounded-sm bg-gray-100 px-2 py-0.5 text-sm ${
+            isPending ? 'text-gray-300' : 'text-gray-600'
+          }`}
+          disabled={isPending}
         />
         <input
           type="submit"
           value="Add"
-          className="rounded-sm bg-black px-2 py-0.5 text-sm text-white"
+          className={`rounded-sm px-2 py-0.5 text-sm text-white ${
+            isPending ? 'bg-gray-500' : 'bg-black'
+          }`}
+          disabled={isPending}
         />
       </form>
     </div>
