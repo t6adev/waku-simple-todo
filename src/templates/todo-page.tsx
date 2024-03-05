@@ -1,6 +1,7 @@
 import { Link } from 'waku';
 
 import { readTodos, addTodo, toggleTodo, deleteTodo } from '../actions/todoActions.js';
+import { Counter } from '../components/Counter.js';
 import { TopTodos } from '../components/TopTodos.js';
 
 type ServerFunction<T> = T extends (...args: infer A) => infer R ? (...args: A) => R : never;
@@ -19,6 +20,7 @@ export const TodoPage = async () => {
       <Link to="/" className="mt-4 inline-block underline">
         Return home
       </Link>
+      <Counter />
     </div>
   );
 };
