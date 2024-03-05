@@ -1,4 +1,5 @@
 import { Link } from 'waku';
+import { Counter } from '../components/Counter.js';
 import { Add } from '../components/Add.js';
 import { Todo } from '../components/Todo.js';
 import { readTodos, addTodo } from '../actions/todoActions.js';
@@ -18,6 +19,7 @@ export const TodoPage = async () => {
       <Link to="/" className="mt-4 inline-block underline">
         Return home
       </Link>
+      <Counter />
     </div>
   );
 };
