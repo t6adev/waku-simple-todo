@@ -17,7 +17,7 @@ export const TopTodos = ({
 }: { todos: { id: string; title: string; done: boolean }[] } & ComponentProps<typeof Add> &
   Pick<ComponentProps<typeof Todo>, 'toggle' | 'deleteTodo'>) => {
   const [todosState, setTodosState] = useState(todos);
-  const [optimisticMessages, addOptimisticMessage] = useOptimistic(
+  const [optimisticMessages, editOptimisticMessage] = useOptimistic(
     todosState,
     (state, action: Action) => {
       switch (action.type) {
@@ -37,18 +37,18 @@ export const TopTodos = ({
     }
   );
   const addTodoWithState = async (formData: FormData) => {
-    addOptimisticMessage({ type: 'add', title: formData.get('title')?.toString() ?? '' });
+    editOptimisticMessage({ type: 'add', title: formData.get('title')?.toString() ?? '' });
     const newTodo = await addTodo(formData);
     setTodosState((s) => [...s, newTodo]);
     return newTodo;
   };
   const toggleWithState = async (id: string, nextDone: boolean, formData: FormData) => {
-    addOptimisticMessage({ type: 'toggle', id, nextDone });
+    editOptimisticMessage({ type: 'toggle', id, nextDone });
     await toggle(id, nextDone, formData);
     setTodosState((s) => s.map((todo) => (todo.id === id ? { ...todo, done: nextDone } : todo)));
   };
   const deleteWithState = async (id: string, formData: FormData) => {
-    addOptimisticMessage({ type: 'delete', id });
+    editOptimisticMessage({ type: 'delete', id });
     await deleteTodo(id, formData);
     setTodosState((s) => s.filter((todo) => todo.id !== id));
   };
