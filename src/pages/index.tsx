@@ -1,6 +1,6 @@
 import { Link } from 'waku';
 
-export const HomePage = async () => {
+export default async function HomePage() {
   const data = await getData();
 
   return (
@@ -13,7 +13,7 @@ export const HomePage = async () => {
       </Link>
     </div>
   );
-};
+}
 
 const getData = async () => {
   const data = {
@@ -23,4 +23,10 @@ const getData = async () => {
   };
 
   return data;
+};
+
+export const getConfig = async () => {
+  return {
+    render: 'static',
+  };
 };

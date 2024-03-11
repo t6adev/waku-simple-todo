@@ -1,10 +1,10 @@
 import { Link } from 'waku';
-import { Counter } from '../components/Counter.js';
-import { Add } from '../components/Add.js';
-import { Todo } from '../components/Todo.js';
-import { readTodos, addTodo } from '../actions/todoActions.js';
+import { Counter } from '../../components/Counter.js';
+import { Add } from '../../components/Add.js';
+import { Todo } from '../../components/Todo.js';
+import { readTodos, addTodo } from '../../actions/todoActions.js';
 
-export const TodoPage = async () => {
+export default async function TodoPage() {
   const todos = await readTodos();
 
   return (
@@ -22,4 +22,10 @@ export const TodoPage = async () => {
       <Counter />
     </div>
   );
+}
+
+export const getConfig = async () => {
+  return {
+    render: 'dynamic',
+  };
 };
