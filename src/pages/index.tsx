@@ -11,6 +11,9 @@ export default async function HomePage() {
       <Link to="/todo" className="block mt-4 underline">
         TODO App page
       </Link>
+      <Link to="/todo/new" className="block mt-2 ml-4 underline">
+        New TODO
+      </Link>
     </div>
   );
 }
