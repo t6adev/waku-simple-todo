@@ -2,18 +2,13 @@
 
 import { useTransition } from 'react';
 
-export const Delete = ({
-  id,
-  deleteTodo,
-}: {
-  id: string;
-  deleteTodo: (id: string, formData: FormData) => Promise<void>;
-}) => {
-  const deleteTodoWithData = deleteTodo.bind(null, id);
+import { deleteTodo } from '../actions/todoActions.js';
+
+export const Delete = ({ id }: { id: string }) => {
   const [isPending, startTransition] = useTransition();
-  const deleteTodoFormAction = async (formData: FormData) => {
+  const deleteTodoFormAction = async () => {
     startTransition(async () => {
-      await deleteTodoWithData(formData);
+      await deleteTodo(id);
     });
   };
   return (

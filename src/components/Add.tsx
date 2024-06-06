@@ -2,7 +2,9 @@
 
 import { useRef, useTransition } from 'react';
 
-export const Add = ({ addTodo }: { addTodo: (formData: FormData) => Promise<void> }) => {
+import { addTodo } from '../actions/todoActions.js';
+
+export const Add = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isPending, startTransition] = useTransition();
   const addTodoFormAction = async (formData: FormData) => {
