@@ -4,11 +4,11 @@
 import type { PathsForPages, GetConfigResponse } from 'waku/router';
 
 // prettier-ignore
-import type { getConfig as Index_getConfig } from './pages/index';
+import type { getConfig as Index_getConfig } from './pages/index.js';
 // prettier-ignore
-import type { getConfig as TodoIndex_getConfig } from './pages/todo/index';
+import type { getConfig as TodoIndex_getConfig } from './pages/todo/index.js';
 // prettier-ignore
-import type { getConfig as TodoNewIndex_getConfig } from './pages/todo/new/index';
+import type { getConfig as TodoNewIndex_getConfig } from './pages/todo/new/index.js';
 
 // prettier-ignore
 type Page =
