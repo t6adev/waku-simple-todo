@@ -1,1 +1,1 @@
-# Simple Todo App with Waku v0.21.0
+# Simple Todo App with Waku v0.22.1
